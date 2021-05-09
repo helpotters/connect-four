@@ -15,4 +15,12 @@ class Board
       end
     end
   end
+
+  def change_value(value, column, row)
+    if @board_matrix[column][row].nil?
+      @board_matrix[column][row] = value
+    else
+      raise 'BadInput'
+    end
+  end
 end
