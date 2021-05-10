@@ -10,21 +10,27 @@ describe Board do
   context 'player sees the board' do
     describe '#print_board' do
       context 'the board must be filled with icons' do
-        blank_dot = "\u26aa".encode('utf-8')
-        red_dot = "\u1F534".encode('utf-8')
+        dots = {
+          blank: "\u26aa".encode('utf-8'),
+          red: "\u1F534".encode('utf-8'),
+          blue: "\u1F535".encode('utf-8')
+        }
         it 'returns the board with empty slots indicated' do
-          blank_row = Array.new(6, blank_dot)
+          blank_row = Array.new(6, dots[:blank])
           blank_array = Array.new(7, blank_row)
           expect(board.print_board).to eq(blank_array) # Empty Dot ASCI
         end
 
-        xit 'returns the board with filled slots indicated' do
-          # TODO: Set fake input
-          fake_row = [blank_dot, red_dot, blank_dot, blank_dot, blank_dot, red_dot, red_dot]
-          fake_board_array = Array.new(6, fake_row)
-          # TODO: Change to context to check for red AND blue dots
-          # TODO: Change to loop to check for any dots
-          expect(board.print_board).to eq(filled_array)
+        context 'the board has inputs from player 1 and player 2' do
+          it 'returns a board with red dots if it is labeled red' do
+            board.change_value('red', 2, 3)
+            expect(board.print_board[2][3]).to eq(dots[:red])
+          end
+
+          it 'returns a board with blue dots if is labeled blue' do
+            board.change_value('blue', 3, 2)
+            expect(board.print_board[3][2]).to eq(dots[:blue])
+          end
         end
       end
     end

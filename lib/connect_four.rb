@@ -14,4 +14,12 @@ class Game
       player_two: Player.new
     }
   end
+
+  def select_player(turn)
+    if turn.odd?
+      players[:player_one]
+    elsif turn.even?
+      players[:player_two]
+    end
+  end
 end
